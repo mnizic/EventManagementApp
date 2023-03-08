@@ -1,13 +1,13 @@
-package com.nizic.app.activitymanagement;
+package com.nizic.app.eventmanagment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ActivityManagementApplication {
+public class EventManagementApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ActivityManagementAppApplication.class, args);
+		SpringApplication.run(EventManagementApplication.class, args);
 	}
 
 }
