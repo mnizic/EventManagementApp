@@ -2,38 +2,50 @@ package com.nizic.app.eventmanagment.entities;
 
 import jakarta.persistence.*;
 
-import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "events")
+@Table(name = "event")
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long eventID;
     @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "from", nullable = false)
-    private SimpleDateFormat from;
-    @Column(name = "to", nullable = false)
-    private SimpleDateFormat to;
+    @Column(name = "from_datetime", nullable = false)
+    private Timestamp from;
+    @Column(name = "to_datetime", nullable = false)
+    private Timestamp to;
+    @Column(name = "free_entry", nullable = false)
+    private Boolean freeEntry;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cityid", referencedColumnName = "cityid", nullable = false)
+    private City city;
+
 
     public Event() {
         super();
     }
 
-    public Event(String name, SimpleDateFormat from, SimpleDateFormat to) {
+    public Event(String name,
+                 Timestamp from,
+                 Timestamp to,
+                 Boolean freeEntry,
+                 City city) {
         super();
         this.name = name;
         this.from = from;
         this.to = to;
+        this.freeEntry = freeEntry;
+        this.city = city;
     }
 
     public Long getId() {
-        return id;
+        return eventID;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long eventID) {
+        this.eventID = eventID;
     }
 
     public String getName() {
@@ -44,19 +56,35 @@ public class Event {
         this.name = name;
     }
 
-    public SimpleDateFormat getFrom() {
+    public Timestamp getFrom() {
         return from;
     }
 
-    public void setFrom(SimpleDateFormat from) {
+    public void setFrom(Timestamp from) {
         this.from = from;
     }
 
-    public SimpleDateFormat getTo() {
+    public Timestamp getTo() {
         return to;
     }
 
-    public void setTo(SimpleDateFormat to) {
+    public void setTo(Timestamp to) {
         this.to = to;
+    }
+
+    public void setFreeEntry(Boolean freeEntry) {
+        this.freeEntry = freeEntry;
+    }
+
+    public Boolean getFreeEntry() {
+        return freeEntry;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 }
