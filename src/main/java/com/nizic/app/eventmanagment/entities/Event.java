@@ -2,7 +2,7 @@ package com.nizic.app.eventmanagment.entities;
 
 import jakarta.persistence.*;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "event")
@@ -13,9 +13,9 @@ public class Event {
     @Column(name = "name", nullable = false)
     private String name;
     @Column(name = "from_datetime", nullable = false)
-    private Timestamp from;
+    private LocalDateTime from;
     @Column(name = "to_datetime", nullable = false)
-    private Timestamp to;
+    private LocalDateTime to;
     @Column(name = "free_entry", nullable = false)
     private Boolean freeEntry;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -28,8 +28,8 @@ public class Event {
     }
 
     public Event(String name,
-                 Timestamp from,
-                 Timestamp to,
+                 LocalDateTime from,
+                 LocalDateTime to,
                  Boolean freeEntry,
                  City city) {
         super();
@@ -56,19 +56,19 @@ public class Event {
         this.name = name;
     }
 
-    public Timestamp getFrom() {
+    public LocalDateTime getFrom() {
         return from;
     }
 
-    public void setFrom(Timestamp from) {
+    public void setFrom(LocalDateTime from) {
         this.from = from;
     }
 
-    public Timestamp getTo() {
+    public LocalDateTime getTo() {
         return to;
     }
 
-    public void setTo(Timestamp to) {
+    public void setTo(LocalDateTime to) {
         this.to = to;
     }
 
