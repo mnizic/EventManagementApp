@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.nizic.app</groupId>
-	<artifactId>activitymanagement</artifactId>
+	<artifactId>eventmanagement</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ActivityManagementApp</name>
-	<description>Activity Management Application (SpringBoot + Thymeleaf)</description>
+	<name>EventManagement</name>
+	<description>Event Management Application (SpringBoot + Thymeleaf)</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -46,6 +46,16 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>4.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>webjars-locator-core</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

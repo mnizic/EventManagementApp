@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pošteni poduzetnik d.o.o.</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+
+<body>
+<div class="container-fluid text-center">
+    <h1>Pošteni poduzetnik d.o.o.</h1>
+    <div><h2>Manage Events</h2></div>
+    <br>
+    <div th:if="${message}" class="alert alert-success text-center" th:text="${message}"></div>
+    <div th:if="${warning}" class="alert alert-danger text-center" th:text="${warning}"></div>
+    <div class="m-2 float-left">
+        <a class="h3 btn btn-success" th:href="@{/events/new}">Add New Event</a><br>
+    </div>
+    <div class="m-2 float-left">
+        <a class="h3 btn btn-light" onclick="cancelForm()">Clear Search</a>
+    </div>
+    <div class="m-2 float-right">
+        <button class="btn btn-info btn-block" onclick="nameForm()">Search by Name</button>
+        <button class="btn btn-info btn-block" onclick="fromForm()">Search by Start Date Range</button>
+        <button class="btn btn-info btn-block" onclick="toForm()">Search by End Date Range</button>
+        <button class="btn btn-info btn-block" onclick="freeEntryForm()">Search by Free Entry</button>
+        <br>
+    </div>
+
+
+    <div>
+        <form action="/events" id="nameForm" style="display: none;">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input placeholder="Enter name" class="form-control" type="text" id="keyword" name="keyword" th:value="${keyword}" required />
+                </div>
+                <div class="col-sm-3 d-flex justify-content-between">
+                    <button type="submit" class="btn btn-info btn-block m-2">Search</button>
+                </div>
+            </div>
+        </form>
+        <form action="/events" id="fromForm" style="display: none">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input placeholder="2023-01-01T21:00" class="form-control" type="text" id="startDateTimeFrom" name="startDateTimeFrom" th:value="${startDateTimeFrom}" required/>
+                </div>
+                <div class="col-sm-6">
+                    <input placeholder="2023-01-02T21:00" class="form-control" type="text" id="endDateTimeFrom" name="endDateTimeFrom" th:value="${endDateTimeFrom}" required />
+                </div>
+                <div class="col-sm-3 d-flex justify-content-between">
+                    <button type="submit" class="btn btn-info btn-block m-2">Search</button>
+                </div>
+            </div>
+        </form>
+        <form action="/events" id="toForm" style="display: none">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input placeholder="2023-01-01T21:00" class="form-control" type="text" id="startDateTimeTo" name="startDateTimeTo" th:value="${startDateTimeTo}" required/>
+                </div>
+                <div class="col-sm-6">
+                    <input placeholder="2023-01-02T21:00" class="form-control" type="text" id="endDateTimeTo" name="endDateTimeTo" th:value="${endDateTimeTo}" required />
+                </div>
+                <div class="col-sm-3 d-flex justify-content-between">
+                    <button type="submit" class="btn btn-info btn-block m-2">Search</button>
+                </div>
+            </div>
+        </form>
+        <form action="/events" id="freeEntryForm" style="display: none">
+            <div class="row">
+                <div class="form-check m-2">
+                    <label>
+                        <input class="form-check-input" type="radio" name="freeEntry" th:value="1"> Free
+                    </label>
+                </div>
+                <div class="form-check m-2">
+                    <label>
+                        <input class="form-check-input" type="radio" name="freeEntry" th:value="0" > Paid
+                    </label>
+                </div>
+                <div class="col-sm-3 d-flex justify-content-between">
+                    <button type="submit" class="btn btn-info btn-block m-2">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br/><br/>
+    <div class="m-2">
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Free Entry</th>
+                    <th>City</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <th:block th:each="event : ${listOfEvents}">
+                    <tr>
+                        <td th:text="${event.getId()}" />
+                        <td th:text="${event.getName()}" />
+                        <td th:text="${event.getFrom()}" />
+                        <td th:text="${event.getTo()}" />
+                        <td th:text="${event.getFreeEntry()}" />
+                        <td th:text="${event.getCity().getName()}" />
+                        <td>
+                            <a class="btn btn-primary h3 mr-3" th:href="@{'/events/edit/' + ${event.getId()}}" th:text="Edit"/>
+                            <a class="btn btn-danger h3 mr-3" th:href="@{'/events/delete/' + ${event.getId()}}" th:text="Delete"/>
+                        </td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function cancelForm(){
+        window.location = "[[@{/events}]]";
+    }
+
+    function nameForm() {
+        document.getElementById("nameForm").style.display = "block";
+        document.getElementById("fromForm").style.display = "none";
+        document.getElementById("toForm").style.display = "none";
+        document.getElementById("freeEntryForm").style.display = "none";
+    }
+
+    function fromForm() {
+        document.getElementById("nameForm").style.display = "none";
+        document.getElementById("fromForm").style.display = "block";
+        document.getElementById("toForm").style.display = "none";
+        document.getElementById("freeEntryForm").style.display = "none";
+    }
+
+    function toForm() {
+        document.getElementById("nameForm").style.display = "none";
+        document.getElementById("fromForm").style.display = "none";
+        document.getElementById("toForm").style.display = "block";
+        document.getElementById("freeEntryForm").style.display = "none";
+    }
+
+    function freeEntryForm() {
+        document.getElementById("nameForm").style.display = "none";
+        document.getElementById("fromForm").style.display = "none";
+        document.getElementById("toForm").style.display = "none";
+        document.getElementById("freeEntryForm").style.display = "block";
+    }
+</script>
+</body>
+
+
+</html>
