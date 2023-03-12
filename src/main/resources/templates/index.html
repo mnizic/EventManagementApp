@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Pošteni poduzetnik d.o.o.</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 </head>
-<div align="center">
-    <body>
-        <h1>Pošteni poduzetnik d.o.o.</h1>
-        <h2><a href="/events">Manage Events</a></h2>
-    </body>
+
+<body>
+<div class="container-fluid text-center">
+    <h1>Pošteni poduzetnik d.o.o.</h1>
+    <a class="h2" th:href="@{/events}">Manage Events</a>
 </div>
+</body>
+
 </html>
