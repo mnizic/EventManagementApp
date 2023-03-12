@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Events</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+
+<body>
+<div class="container-fluid text-center">
+    <div><h1>Manage Events</h1></div>
+    <div class="m-2">
+        <a class="h3 btn btn-success" th:href="@{/events/new}">Add New Event</a>
+    </div>
+    <div th:if="${message}" class="alert alert-success text-center" th:text="${message}">    </div>
+    <div >
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Free Entry</th>
+                    <th>City</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <th:block th:each="event : ${listOfEvents}">
+                    <tr>
+                        <td th:text="${event.getId()}" />
+                        <td th:text="${event.getName()}" />
+                        <td th:text="${event.getFrom()}" />
+                        <td th:text="${event.getTo()}" />
+                        <td th:text="${event.getFreeEntry()}" />
+                        <td th:text="${event.getCity().getName()}" />
+                        <td>
+                            <a class="btn btn-primary h3 mr-3" th:href="@{'/events/edit/' + ${event.getId()}}" th:text="Edit"/>
+                            <a class="btn btn-danger h3 mr-3" th:href="@{'/events/delete/' + ${event.getId()}}" th:text="Delete"/>
+                        </td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+
+</html>
