@@ -18,7 +18,7 @@ public class Event {
     private LocalDateTime to;
     @Column(name = "free_entry", nullable = false)
     private Boolean freeEntry;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "cityid", referencedColumnName = "cityid", nullable = false)
     private City city;
 
